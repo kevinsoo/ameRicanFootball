@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1477148601137.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "AD45833D",
+    "lastKnownWriteTime" : 4506970624,
+    "last_content_update" : 1477148601137,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "xrs5vg3c0a",
+        "caption" : "QBStats",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=QBStats&cache_key=xrs5vg3c0a",
+        "displayedObservations" : 1830,
+        "environment" : "",
+        "object" : "QBStats",
+        "totalObservations" : 1830,
+        "variables" : 25
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

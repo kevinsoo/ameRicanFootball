@@ -66,9 +66,10 @@ for (q in 1:length(qbs)) {
     regularSeason$HomeAway <- ifelse(regularSeason$HomeAway=="@", "A", ifelse(regularSeason$HomeAway=="", "H", "N"))
     regularSeason$Start <- ifelse(regularSeason$Start=="", 0, 1)
     regularSeason$AgeDays <- as.numeric(regularSeason$AgeDays)
+    regularSeason$Type <- "RegularSeason"
     
     # select columns
-    regularSeason <- regularSeason %>% select(Year:GameNum, 
+    regularSeason <- regularSeason %>% select(Type, Year:GameNum, 
                                               AgeYears, AgeDays, 
                                               Team:Opponent, 
                                               WinLoss:ScoreOpp, 
@@ -114,9 +115,10 @@ for (q in 1:length(qbs)) {
         playoffs$HomeAway <- ifelse(playoffs$HomeAway=="@", "A", ifelse(playoffs$HomeAway=="", "H", "N"))
         playoffs$Start <- ifelse(playoffs$Start=="", 0, 1)
         playoffs$AgeDays <- as.numeric(playoffs$AgeDays)
+        playoffs$Type <- "Playoffs"
         
         # select columns
-        playoffs <- playoffs %>% select(Year:GameNum, 
+        playoffs <- playoffs %>% select(Type, Year:GameNum, 
                                         AgeYears, AgeDays, 
                                         Team:Opponent, 
                                         WinLoss:ScoreOpp, 
