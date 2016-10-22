@@ -1,4 +1,4 @@
-# americanFootball
+# ameRicanFootball
 #### *Author: Kevin Soo*
 
 This is a project (written in `R`) for scraping, visualizing, and analyzing NFL data. The data used here comes from the [Pro Football Reference](http://www.pro-football-reference.com/). I don't know much about American Football (I prefer [soccer](https://github.com/kevinsoo/socceRstuff)), so I'm getting help from [Evelyn Yarzebinski](https://github.com/evementen) to ask and answer questions of interest.
