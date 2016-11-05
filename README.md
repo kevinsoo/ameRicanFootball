@@ -3,5 +3,5 @@
 
 This is a project (written in `R`) for scraping, visualizing, and analyzing NFL data. The data used here comes from the [Pro Football Reference](http://www.pro-football-reference.com/). I don't know much about American Football (I prefer [soccer](https://github.com/kevinsoo/socceRstuff)), so I'm getting help from [Evelyn Yarzebinski](https://github.com/evementen) to ask and answer questions of interest.
 
-## Deflate/Inflate-gate
+## QB data
 `scrapeQB.R` is the script used to scrape QB data, which is then saved as a data frame; `QBStats.Rda`. For simplicity, I only included data from QBs who started playing in 2000, and who played for at least 3 seasons. Provided the source is updated, running the script at any given time should give you up-to-date statistics.
