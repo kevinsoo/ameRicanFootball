@@ -1,11 +1,10 @@
-#######################################
-# Visualizes QB passing stats over time
+#######################
+# Types of Quarterbacks
 # Author: Kevin Soo
-#######################################
+#######################
 
 # load stuff
 library(tidyverse)
-library(ggthemes)
 theme_set(theme_bw())
 load("QBStats.Rda")
 
@@ -14,7 +13,7 @@ QBStats$Period <- ifelse(as.numeric(as.Date(QBStats$Date)) < as.numeric(as.Date(
                          ifelse(as.numeric(as.Date(QBStats$Date)) < as.numeric(as.Date("2015-09-01")), "During", "Current"))
 # isolate QBs of interest
 QBStats$QB <- as.factor(ifelse(QBStats$Player=="Aaron Rodgers", "Aaron Rodgers", 
-                     ifelse(QBStats$Player=="Tom Brady", "Tom Brady", "Other")))
+                               ifelse(QBStats$Player=="Tom Brady", "Tom Brady", "Other")))
 
 # isolate time period
 df <- QBStats %>% filter(Year>=2014, Year<2016)

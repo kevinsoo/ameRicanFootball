@@ -13,21 +13,25 @@ qbindex <- read_html("http://www.pro-football-reference.com/players/qbindex.htm"
 qbtable <- qbindex %>% html_table(fill = TRUE)
 qbtable <- data.frame(qbtable[1])
 
-# get QBs from after 2000 and filter out weird names
-qbtable <- qbtable %>% filter(From>=2000, To-From>=3) %>% filter(Player!="Brian St. Pierre", Player!="")
-qbs <- qbtable$Player
+# get links of QBs
+qblinks <- qbindex %>% html_nodes('#players a') %>% html_attr('href')
+qbtable <- data.frame(qbtable, qblinks)
 
-# get links
-qblinks <- rep(NA, length(qbs))
-for (n in 1:length(qbs)) {
-    name <- strsplit(qbs[n], " ")
-    qblinks[n] <- paste("http://www.pro-football-reference.com/players/", substr(name[[1]][2],1,1) , "/", substr(name[[1]][2],1,4), substr(name[[1]][1],1,2), "", "00/gamelog/", sep="")
+# filter QBs based on years active
+qbtable <- qbtable %>% filter(To>=2000, To-From>=3)
+
+# get url for player gamelogs
+qbtable$url <- rep(NA, nrow(qbtable))
+for (n in 1:nrow(qbtable)) {
+    qbtable$url[n] <- paste("http://www.pro-football-reference.com", 
+                            substr(qbtable$qblinks[n], 1, str_locate(qbtable$qblinks[n], 'htm')[1]-2),
+                            "/gamelog/", sep="")
 }
 
 # scraping
-for (q in 1:length(qbs)) {
+for (q in 1:nrow(qbtable)) {
     # scrape tables
-    player <- read_html(qblinks[q])
+    player <- read_html(qbtable$url[q])
     stats <- player %>% html_table(fill = TRUE)
     regularSeason <- data.frame(stats[1])
     
