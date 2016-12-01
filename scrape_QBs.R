@@ -12,13 +12,14 @@ library(stringr)
 qbindex <- read_html("http://www.pro-football-reference.com/players/qbindex.htm")
 qbtable <- qbindex %>% html_table(fill = TRUE)
 qbtable <- data.frame(qbtable[1])
+qbtable$Seasons <- qbtable$To - qbtable$From + 1
 
 # get links of QBs
 qblinks <- qbindex %>% html_nodes('#players a') %>% html_attr('href')
 qbtable <- data.frame(qbtable, qblinks)
 
 # filter QBs based on years active
-qbtable <- qbtable %>% filter(To>=2000, To-From>=3)
+qbtable <- qbtable %>% filter(To>=2012, Seasons>=3)
 
 # get url for player gamelogs
 qbtable$url <- rep(NA, nrow(qbtable))
@@ -131,7 +132,7 @@ for (q in 1:nrow(qbtable)) {
         # combine data frames
         allStats <- rbind(regularSeason, playoffs) %>% arrange(Date)
         Game <- 1:nrow(allStats)
-        Player <- rep(qbs[q], nrow(allStats))
+        Player <- rep(qbtable$Player[q], nrow(allStats))
         allStats <- data.frame(Player, Game, allStats)
     }
     
@@ -139,7 +140,7 @@ for (q in 1:nrow(qbtable)) {
     if (length(player)==1) {
         allStats <- regularSeason %>% arrange(Date)
         Game <- 1:nrow(allStats)
-        Player <- rep(qbs[q], nrow(allStats))
+        Player <- rep(qbtable$Player[q], nrow(allStats))
         allStats <- data.frame(Player, Game, allStats)   
     }
     
@@ -147,6 +148,13 @@ for (q in 1:nrow(qbtable)) {
     if (q==1) { QBStats <- allStats }
     else { QBStats <- rbind(QBStats, allStats) }
 }
+
+# set NA entries to 0
+QBStats$PassComplete <- ifelse(is.na(QBStats$PassComplete)==TRUE, 0, QBStats$PassComplete)
+QBStats$PassAttempt <- ifelse(is.na(QBStats$PassAttempt)==TRUE, 0, QBStats$PassAttempt)
+QBStats$PassYards <- ifelse(is.na(QBStats$PassYards)==TRUE, 0, QBStats$PassYards)
+QBStats$PassTD <- ifelse(is.na(QBStats$PassTD)==TRUE, 0, QBStats$PassTD)
+QBStats$PassIntercepted <- ifelse(is.na(QBStats$PassIntercepted)==TRUE, 0, QBStats$PassIntercepted)
 
 # set data types
 QBStats$Player <- as.factor(QBStats$Player)
